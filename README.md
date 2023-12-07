@@ -1,16 +1,10 @@
-# github-tag-action
+# github-tag-action-elixir
 
-A Github Action to automatically bump and tag master, on merge, with the latest SemVer formatted version.
+A Github Action to automatically bump update mix.exs and tag master, on merge, with the latest SemVer formatted version.
 
-[![Build Status](https://github.com/anothrNick/github-tag-action/workflows/Bump%20version/badge.svg)](https://github.com/anothrNick/github-tag-action/workflows/Bump%20version/badge.svg)
-[![Stable Version](https://img.shields.io/github/v/tag/anothrNick/github-tag-action)](https://img.shields.io/github/v/tag/anothrNick/github-tag-action)
-[![Latest Release](https://img.shields.io/github/v/release/anothrNick/github-tag-action?color=%233D9970)](https://img.shields.io/github/v/release/anothrNick/github-tag-action?color=%233D9970)
-
-> Medium Post: [Creating A Github Action to Tag Commits](https://itnext.io/creating-a-github-action-to-tag-commits-2722f1560dec)
-
-[<img src="https://miro.medium.com/max/1200/1*_4Ex1uUhL93a3bHyC-TgPg.png" width="400">](https://itnext.io/creating-a-github-action-to-tag-commits-2722f1560dec)
-
-> 📣 [This project is seeking maintainers!](https://github.com/anothrNick/github-tag-action/issues/238) 📣
+[![Build Status](https://github.com/data-twister/github-tag-action-elixir/workflows/Bump%20Project%20version%20(Elixir)/badge.svg)](https://github.com/data-twister/github-tag-action-elixir/workflows/Bump%20version/badge.svg)
+[![Stable Version](https://img.shields.io/github/v/tag/data-twister/github-tag-action-elixir)](https://img.shields.io/github/v/tag/data-twister/github-tag-action-elixir)
+[![Latest Release](https://img.shields.io/github/v/release/data-twister/github-tag-action-elixir?color=%233D9970)](https://img.shields.io/github/v/release/data-twister/github-tag-action-elixir?color=%233D9970)
 
 ## Usage
 
@@ -35,7 +29,7 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: data-twister/github-tag-action-elixir@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: false
@@ -64,7 +58,7 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: data-twister/github-tag-action-elixir@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
@@ -93,7 +87,7 @@ _NOTE: set the fetch-depth for `actions/checkout@v2` or newer to be sure you ret
 - **GIT_API_TAGGING** _(optional)_ - Set if using git cli or git api calls for tag push operations. Possible values are `false` and `true` (default).
 - **INITIAL_VERSION** _(optional)_ - Set initial version before bump. Default `0.0.0`. MAKE SURE NOT TO USE vX.X.X here if combined WITH_V
 - **TAG_CONTEXT** _(optional)_ - Set the context of the previous tag. Possible values are `repo` (default) or `branch`.
-- **PRERELEASE** _(optional)_ - Define if workflow runs in prerelease mode, `false` by default. Note this will be overwritten if using complex suffix release branches. Use it with checkout `ref: ${{ github.sha }}` for consistency see [issue 266](https://github.com/anothrNick/github-tag-action/issues/266).
+- **PRERELEASE** _(optional)_ - Define if workflow runs in prerelease mode, `false` by default. Note this will be overwritten if using complex suffix release branches. Use it with checkout `ref: ${{ github.sha }}` for consistency see [issue 266](https://github.com/data-twister/github-tag-action-elixir/issues/266).
 - **PRERELEASE_SUFFIX** _(optional)_ - Suffix for your prerelease versions, `beta` by default. Note this will only be used if a prerelease branch.
 - **VERBOSE** _(optional)_ - Print git logs. For some projects these logs may be very large. Possible values are `true` (default) and `false`.
 - **MAJOR_STRING_TOKEN** _(optional)_ - Change the default `#major` commit message string tag.
@@ -131,7 +125,7 @@ If `#none` is contained in the merge commit message, it will skip bumping regard
   - Get latest tag
   - Bump tag with minor version unless the merge commit message contains `#major` or `#patch`
   - Pushes tag to github
-  - If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag. see [issue 266](https://github.com/anothrNick/github-tag-action/issues/266).
+  - If triggered on your repo's default branch (`master` or `main` if unchanged), the bump version will be a release tag. see [issue 266](https://github.com/data-twister/github-tag-action-elixir/issues/266).
   - If triggered on any other branch, a prerelease will be generated, depending on the bump, starting with `*-<PRERELEASE_SUFFIX>.1`, `*-<PRERELEASE_SUFFIX>.2`, ...
   - To create a repository release you need another workflow like [automatic-releases](https://github.com/marketplace/actions/automatic-releases).
 
@@ -142,13 +136,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.
 ## Credits
 
 - [fsaintjacques/semver-tool](https://github.com/fsaintjacques/semver-tool)
-- [Contributors to this project](https://github.com/anothrNick/github-tag-action/graphs/contributors)
+- [Contributors to this project](https://github.com/data-twister/github-tag-action-elixir/graphs/contributors)
 
-## Projects using github-tag-action
+## Projects using github-tag-action-elixir
 
-Examples of projects using github-tag-action for reference.
+Examples of projects using github-tag-action-elixir for reference.
 
-- another/github-tag-action (uses itself to create tags)
-- [anothrNick/json-tree-service](https://github.com/anothrNick/json-tree-service)
-
-  > Access JSON structure with HTTP path parameters as keys/indices to the JSON.
+- [data-twister/github-tag-action-elixir](https://github.com/data-twister/jgithub-tag-action-elixir)

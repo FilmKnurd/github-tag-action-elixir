@@ -270,6 +270,13 @@ EOF
     echo "::debug::${git_refs_response}"
     if [ "${git_ref_posted}" = "refs/tags/${new}" ]
     then
+      #update mix.exs
+      echo "Updating mix.exs."
+      mix=$(sed 's/version ".*"/version "$new"/' < mix.exs)
+      echo "$mix" > mix.exs
+      git add mix.exs
+      git commit --amend --no-edit
+      git push -f
         exit 0
     else
         echo "::error::Tag was not created properly."
@@ -277,5 +284,11 @@ EOF
     fi
 else
     # use git cli to push
+    echo "Updating mix.exs."
+    mix=$(sed 's/version ".*"/version "$new"/' < mix.exs)
+    echo "$mix" > mix.exs
+    git add mix.exs
+    git commit --amend --no-edit
+    git push -f
     git push -f origin "$new" || exit 1
 fi
