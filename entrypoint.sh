@@ -11,7 +11,6 @@ custom_tag=${CUSTOM_TAG:-}
 source=${SOURCE:-.}
 dryrun=${DRY_RUN:-false}
 git_api_tagging=${GIT_API_TAGGING:-true}
-initial_version=${INITIAL_VERSION:-0.0.0}
 tag_context=${TAG_CONTEXT:-repo}
 prerelease=${PRERELEASE:-false}
 suffix=${PRERELEASE_SUFFIX:-beta}
@@ -27,6 +26,10 @@ user_name=${USER_NAME:-}
 git config --global --add safe.directory /github/workspace
 
 cd "${GITHUB_WORKSPACE}/${source}" || exit 1
+
+mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
+
+initial_version=${INITIAL_VERSION:-$mix_version}
 
 echo "*** CONFIGURATION ***"
 echo -e "\tDEFAULT_BUMP: ${default_semvar_bump}"
