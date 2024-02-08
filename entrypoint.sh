@@ -21,6 +21,8 @@ minor_string_token=${MINOR_STRING_TOKEN:-#minor}
 patch_string_token=${PATCH_STRING_TOKEN:-#patch}
 none_string_token=${NONE_STRING_TOKEN:-#none}
 branch_history=${BRANCH_HISTORY:-compare}
+user_email=${USER_EMAIL:-}
+user_name=${USER_NAME:-}
 # since https://github.blog/2022-04-12-git-security-vulnerability-announced/ runner uses?
 git config --global --add safe.directory /github/workspace
 
@@ -45,12 +47,28 @@ echo -e "\tMINOR_STRING_TOKEN: ${minor_string_token}"
 echo -e "\tPATCH_STRING_TOKEN: ${patch_string_token}"
 echo -e "\tNONE_STRING_TOKEN: ${none_string_token}"
 echo -e "\tBRANCH_HISTORY: ${branch_history}"
+echo -e "\USER_EMAIL: ${user_email}"
+echo -e "\USER_NAME: ${user_name}"
 
 # verbose, show everything
 if $verbose
 then
     set -x
 fi
+if [ -z "${user_email}" ]
+then
+  echo "::error::USER_EMAIL must not be null, Check Environment Variables."
+  exit 1
+fi
+
+if [ -z "${user_name}" ]
+then
+  echo "::error::USER_NAME must not be null, Check Environment Variables."
+  exit 1
+fi
+
+git config --global user.email "${user_email}"
+git config --global user.name "${user_name}"
 
 setOutput() {
     echo "${1}=${2}" >> "${GITHUB_OUTPUT}"
