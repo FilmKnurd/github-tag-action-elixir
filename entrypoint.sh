@@ -27,6 +27,9 @@ git config --global --add safe.directory /github/workspace
 
 cd "${GITHUB_WORKSPACE}/${source}" || exit 1
 
+mix local.hex --force && \
+mix local.rebar --force
+
 mix deps.get
 
 if [ -d ./apps ]; then
@@ -42,9 +45,6 @@ then
   echo "::error::Umbrella Apps Are Currently Unsupported."
   exit 0
 fi
-
-mix local.hex --force && \
-mix local.rebar --force
 
 mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
 
