@@ -81,8 +81,8 @@ _NOTE: set the fetch-depth for `actions/checkout@v2` or newer to be sure you ret
 
 **Environment Variables**
 
-- **GIT_USERNAME** **_(required)_** - Required for updating tag.
-- **GIT_Email** **_(required)_** - Required for updating tag.
+- **GIT_USERNAME** **_(optional)_** - Required for updating tag.
+- **GIT_EMAIL** **_(optional)_** - Required for updating tag.
 - **GITHUB_TOKEN** **_(required)_** - Required for permission to tag the repo.
 - **DEFAULT_BUMP** _(optional)_ - Which type of bump to use when none explicitly provided (default: `minor`).
 - **DEFAULT_BRANCH** _(optional)_ - Overwrite the default branch its read from Github Runner env var but can be overwritten (default: `$GITHUB_BASE_REF`). Strongly recommended to set this var if using anything else than master or main as default branch otherwise in combination with history full will error.
