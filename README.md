@@ -32,9 +32,10 @@ jobs:
       uses: data-twister/github-tag-action-elixir@master # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-        WITH_V: false
-        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+#        WITH_V: {{ secrets.WITH_V }}
+#        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 #        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+#        PRERELEASE: true
 ```
 
 ```yaml
@@ -63,9 +64,9 @@ jobs:
       uses: data-twister/github-tag-action-elixir@master # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
-        WITH_V: true
-        PRERELEASE: true
-        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+#        WITH_V: true
+#        PRERELEASE: true
+#        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 #        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
         
 
