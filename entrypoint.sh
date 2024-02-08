@@ -69,8 +69,8 @@ echo -e "\tMINOR_STRING_TOKEN: ${minor_string_token}"
 echo -e "\tPATCH_STRING_TOKEN: ${patch_string_token}"
 echo -e "\tNONE_STRING_TOKEN: ${none_string_token}"
 echo -e "\tBRANCH_HISTORY: ${branch_history}"
-echo -e "\USER_EMAIL: ${user_email}"
-echo -e "\USER_NAME: ${user_name}"
+echo -e "\tUSER_EMAIL: ${user_email}"
+echo -e "\tUSER_NAME: ${user_name}"
 
 # verbose, show everything
 if $verbose
@@ -318,7 +318,7 @@ EOF
     if [ "${git_ref_posted}" = "refs/tags/${new}" ]
     then
       #update mix.exs
-      echo "Updating mix.exs."
+      echo "Updating mix.exs to version: ${ver}."
        mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
        echo "$mix" > mix.exs
 
