@@ -27,6 +27,8 @@ git config --global --add safe.directory /github/workspace
 
 cd "${GITHUB_WORKSPACE}/${source}" || exit 1
 
+mix deps.get
+
 mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
 
 initial_version=${INITIAL_VERSION:-$mix_version}
