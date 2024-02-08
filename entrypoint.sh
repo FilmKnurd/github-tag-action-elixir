@@ -331,7 +331,6 @@ EOF
          echo "$mix" > mix.exs
       fi
 
-      echo "$mix" > mix.exs
       git add mix.exs
       git commit --amend --no-edit
       git push -f
@@ -344,6 +343,7 @@ else
     # use git cli to push
     echo "Updating mix.exs."
     mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
+    echo "$mix" > mix.exs
 
      if "$with_v"
           then
@@ -354,7 +354,7 @@ else
              echo "$mix" > mix.exs
           fi
 
-    echo "$mix" > mix.exs
+
     git add mix.exs
     git commit --amend --no-edit
     git push -f
