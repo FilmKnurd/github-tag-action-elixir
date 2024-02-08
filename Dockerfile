@@ -12,9 +12,6 @@ LABEL "maintainer"="mithereal"
 RUN apt-get update -y && apt-get install -y build-essential git npm bash curl jq\
     && apt-get clean && rm -f /var/lib/apt/lists/*_* && npm install -g semver
 
-RUN mix local.hex --force && \
-    mix local.rebar --force
-
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
