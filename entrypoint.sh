@@ -5,7 +5,7 @@ set -eo pipefail
 # config
 default_semvar_bump=${DEFAULT_BUMP:-minor}
 default_branch=${DEFAULT_BRANCH:-$GITHUB_BASE_REF} # get the default branch from github runner env vars
-with_v=${WITH_V:-false}
+with_v=${WITH_V:-true}
 release_branches=${RELEASE_BRANCHES:-master,main}
 custom_tag=${CUSTOM_TAG:-}
 source=${SOURCE:-.}
@@ -321,14 +321,15 @@ EOF
       echo "Updating mix.exs."
        mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
       echo "$mix" > mix.exs
-      if "$with_v"
-      then
-         mix=$(sed 's/source_ref: ".*"/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-         echo "$mix" > mix.exs
-      else
-         mix=$(sed 's/source_ref: ".*"/source_ref:  '\""${ver}\""' /' < mix.exs)
-         echo "$mix" > mix.exs
-      fi
+
+#      if "$with_v"
+#      then
+#         mix=$(sed 's/source_ref: ".*"/source_ref:  '\"v"${ver}\""' /' < mix.exs)
+#         echo "$mix" > mix.exs
+#      else
+#         mix=$(sed 's/source_ref: ".*"/source_ref:  '\""${ver}\""' /' < mix.exs)
+#         echo "$mix" > mix.exs
+#      fi
 
       git add mix.exs
       git commit --amend --no-edit
