@@ -41,27 +41,27 @@ jobs:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
 #          title: "${{ steps.tag.outputs.tag }}: [title-edit-me] by:${{ github.actor }}"
 #          automatic_release_tag: ${{ steps.tag.outputs.new_tag }}
-
-      - name: version-tag-major
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_USERNAME: ${{ secrets.github.actor }}
-          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
-        run: |
-          git fetch --tags
-          tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
-          tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
-          [[ "$tag" =~ ^([0-9]+) ]] # use ^(v[0-9]+) for vX
-          major=${BASH_REMATCH[1]}
-          # update mix.exs
-          mix=sed 's/version ".*"/version "$major"/' < mix.exs
-          echo $mix > mix.exs
-          git add mix.exs
-          git commit --amend --no-edit
-          git push -f 
-          # update major tag
-          git tag -f "$major"
-          git push -f origin "$major"
-          # add vX as 1 is linked to short sha bug https://github.com/data-twister/github-tag-action-elixir/actions/runs/3139501775/jobs/5099976842#step:1:35
-          git tag -f "v$major"
-          git push -f origin "v$major"
+#
+#      - name: version-tag-major
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          GIT_USERNAME: ${{ secrets.github.actor }}
+#          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+#        run: |
+#          git fetch --tags
+#          tagFmt="^v?[0-9]+\.[0-9]+\.[0-9]+$"
+#          tag="$(git for-each-ref --sort=-v:refname --format '%(refname:lstrip=2)' | grep -E "$tagFmt" | head -n 1)"
+#          [[ "$tag" =~ ^([0-9]+) ]] # use ^(v[0-9]+) for vX
+#          major=${BASH_REMATCH[1]}
+#          # update mix.exs
+#          mix=sed 's/version ".*"/version "$major"/' < mix.exs
+#          echo $mix > mix.exs
+#          git add mix.exs
+#          git commit --amend --no-edit
+#          git push -f
+#          # update major tag
+#          git tag -f "$major"
+#          git push -f origin "$major"
+#          # add vX as 1 is linked to short sha bug https://github.com/data-twister/github-tag-action-elixir/actions/runs/3139501775/jobs/5099976842#step:1:35
+#          git tag -f "v$major"
+#          git push -f origin "v$major"
