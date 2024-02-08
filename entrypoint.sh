@@ -32,7 +32,7 @@ mix deps.get
 if [ -d ./apps ]; then
   umbrella_exists=true
   else
-     umbrella_exists=false
+  umbrella_exists=false
 fi
 
 umbrella_app=${UMBRELLA_APP:-$umbrella_exists}
