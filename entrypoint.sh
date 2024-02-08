@@ -332,7 +332,3 @@ else
     git push -f
     git push -f origin "$new" || exit 1
 fi
-
-function build_version_string() {
-'s/version ".*"/version ' += $1 += '/'
-}
