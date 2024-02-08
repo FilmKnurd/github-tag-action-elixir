@@ -240,16 +240,20 @@ then
         if $with_v
         then
             new=v$(semver -i prerelease "${pre_tag}" --preid "${suffix}")
+            ver=$(semver -i prerelease "${pre_tag}" --preid "${suffix}")
         else
             new=$(semver -i prerelease "${pre_tag}" --preid "${suffix}")
+            ver=$(semver -i prerelease "${pre_tag}" --preid "${suffix}")
         fi
         echo -e "Bumping ${suffix} pre-tag ${pre_tag}. New pre-tag ${new}"
     else
         if $with_v
         then
             new="v$new-$suffix.0"
+            ver="$new-$suffix.0"
         else
             new="$new-$suffix.0"
+            ver="new-$suffix.0"
         fi
         echo -e "Setting ${suffix} pre-tag ${pre_tag} - With pre-tag ${new}"
     fi
@@ -258,6 +262,7 @@ else
     if $with_v
     then
         new="v$new"
+        ver="$new"
     fi
     echo -e "Bumping tag ${tag} - New tag ${new}"
 fi
@@ -312,7 +317,7 @@ EOF
     then
       #update mix.exs
       echo "Updating mix.exs."
-       mix=$(sed 's/version ".*"/version  '"${new}"' /' < mix.exs)
+       mix=$(sed 's/version ".*"/version  '"${ver}"' /' < mix.exs)
       echo "$mix" > mix.exs
       git add mix.exs
       git commit --amend --no-edit
@@ -325,7 +330,7 @@ EOF
 else
     # use git cli to push
     echo "Updating mix.exs."
-    mix=$(sed 's/version ".*"/version  '"${new}"' /' < mix.exs)
+    mix=$(sed 's/version ".*"/version  '"${ver}"' /' < mix.exs)
     echo "$mix" > mix.exs
     git add mix.exs
     git commit --amend --no-edit
