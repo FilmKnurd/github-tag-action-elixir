@@ -222,6 +222,8 @@ case "$log" in
         ;;
 esac
 
+ver="$initial_version"
+
 if $pre_release
 then
     # get current commit hash for tag
@@ -249,11 +251,11 @@ then
     else
         if $with_v
         then
-            new="v$new-$suffix.0"
             ver="$new-$suffix.0"
+            new="v$new-$suffix.0"
         else
+            ver="$new-$suffix.0"
             new="$new-$suffix.0"
-            ver="new-$suffix.0"
         fi
         echo -e "Setting ${suffix} pre-tag ${pre_tag} - With pre-tag ${new}"
     fi
@@ -261,8 +263,8 @@ then
 else
     if $with_v
     then
-        new="v$new"
         ver="$new"
+        new="v$new"
     fi
     echo -e "Bumping tag ${tag} - New tag ${new}"
 fi
