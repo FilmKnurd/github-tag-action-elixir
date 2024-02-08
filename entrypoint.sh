@@ -319,7 +319,7 @@ EOF
     then
       #update mix.exs
       echo "Updating mix.exs to version: ${ver}."
-       mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
+       mix=$(sed 's/.version ".*"/version  '\""${ver}\""' /' < mix.exs)
        echo "$mix" > mix.exs
 
 #      if "$with_v"
@@ -342,7 +342,7 @@ EOF
 else
     # use git cli to push
     echo "Updating mix.exs."
-    mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
+    mix=$(sed 's/.version ".*"/version  '\""${ver}\""' /' < mix.exs)
     echo "$mix" > mix.exs
 
 #     if "$with_v"
