@@ -33,8 +33,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: false
-        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+#        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
 ```
 
 ```yaml
@@ -65,8 +65,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
         PRERELEASE: true
-        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
         GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+#        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+        
 
 ```
 

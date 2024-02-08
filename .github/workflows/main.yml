@@ -27,7 +27,7 @@ jobs:
         uses: data-twister/github-tag-action-elixir@master # if we use 1 there is a too-be-fixed bug https://github.com/anothrNick/github-tag-action/actions/runs/3139501775/jobs/5099976842#step:1:35 as alternative we could use v1
         env:
           VERBOSE: true,
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_USERNAME: ${{ secrets.github.actor }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GIT_API_TAGGING: false # uses git cli
@@ -44,7 +44,7 @@ jobs:
       - name: version-tag-major
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_USERNAME: ${{ secrets.github.actor }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
         run: |
           git fetch --tags
