@@ -29,10 +29,12 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: data-twister/github-tag-action-elixir@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: data-twister/github-tag-action-elixir@master # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: false
+        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 ```
 
 ```yaml
@@ -58,11 +60,13 @@ jobs:
         fetch-depth: '0'
 
     - name: Bump version and push tag
-      uses: data-twister/github-tag-action-elixir@1.1.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      uses: data-twister/github-tag-action-elixir@master # Don't use @master or @v1 unless you're happy to test the latest version
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # if you don't want to set write permissions use a PAT token
         WITH_V: true
         PRERELEASE: true
+        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
 ```
 
@@ -76,6 +80,8 @@ _NOTE: set the fetch-depth for `actions/checkout@v2` or newer to be sure you ret
 
 **Environment Variables**
 
+- **GIT_USERNAME** **_(required)_** - Required for updating tag.
+- **GIT_Email** **_(required)_** - Required for updating tag.
 - **GITHUB_TOKEN** **_(required)_** - Required for permission to tag the repo.
 - **DEFAULT_BUMP** _(optional)_ - Which type of bump to use when none explicitly provided (default: `minor`).
 - **DEFAULT_BRANCH** _(optional)_ - Overwrite the default branch its read from Github Runner env var but can be overwritten (default: `$GITHUB_BASE_REF`). Strongly recommended to set this var if using anything else than master or main as default branch otherwise in combination with history full will error.

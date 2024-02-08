@@ -45,6 +45,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: major
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       - name: Test action main3 (with_v false)
         id: test_main3
@@ -55,6 +57,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: none
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       - name: Test action main4 (with_v true)
         id: test_main4
@@ -65,6 +69,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: none
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       - name: Test action main5 (with_v true)
         id: test_main5
@@ -75,6 +81,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: patch
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       # Use the action to generate a tag for itself
       - name: Test action pre1-release (with_v true)
@@ -88,6 +96,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: minor # default
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       - name: Test action pre2-release (with_v false)
         id: test_pre2
@@ -100,6 +110,8 @@ jobs:
           VERBOSE: true
           DEFAULT_BUMP: major
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       # Check if the action created the expected output
       - name: Check if the tag would have been created
