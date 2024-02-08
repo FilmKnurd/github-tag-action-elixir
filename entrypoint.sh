@@ -312,8 +312,9 @@ EOF
     then
       #update mix.exs
       echo "Updating mix.exs."
-    arr=( "'s/version \".*\"/version " "${new}" "/' < mix.exs")
-          mix=$(sed "${arr[@]}")
+        arr=( "'s/version \".*\"/version " "2.2.1" "/' < mix.exs")
+        converted="${arr[*]}"
+        mix=$(sed "${converted}")
       echo "$mix" > mix.exs
       git add mix.exs
       git commit --amend --no-edit
@@ -326,8 +327,9 @@ EOF
 else
     # use git cli to push
     echo "Updating mix.exs."
-    arr=( "'s/version \".*\"/version " "${new}" "/' < mix.exs")
-          mix=$(sed "${arr[@]}")
+    arr=( "'s/version \".*\"/version " "2.2.1" "/' < mix.exs")
+    converted="${arr[*]}"
+    mix=$(sed "${converted}")
     echo "$mix" > mix.exs
     git add mix.exs
     git commit --amend --no-edit
