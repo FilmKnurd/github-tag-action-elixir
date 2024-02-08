@@ -344,16 +344,16 @@ else
     echo "Updating mix.exs."
     mix=$(sed 's/version ".*"/version  '\""${ver}\""' /' < mix.exs)
     echo "$mix" > mix.exs
-     if "$with_v"
-          then
-             mix=$(sed 's/source_ref: ".*"/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-             echo "$mix" > mix.exs
-          else
-             mix=$(sed 's/source_ref: ".*"/source_ref:  '\""${ver}\""' /' < mix.exs)
-             echo "$mix" > mix.exs
-          fi
+#     if "$with_v"
+#          then
+#             mix=$(sed 's/source_ref: ".*"/source_ref:  '\"v"${ver}\""' /' < mix.exs)
+#             echo "$mix" > mix.exs
+#          else
+#             mix=$(sed 's/source_ref: ".*"/source_ref:  '\""${ver}\""' /' < mix.exs)
+#             echo "$mix" > mix.exs
+#          fi
     git add mix.exs
     git commit --amend --no-edit
     git push -f
-    git push -f origin "$new" || exit 1
+    git push -f origin "$new" || exit 0
 fi
