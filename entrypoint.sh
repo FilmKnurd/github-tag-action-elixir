@@ -29,6 +29,18 @@ cd "${GITHUB_WORKSPACE}/${source}" || exit 1
 
 mix deps.get
 
+if [ -d ./apps ]; then
+  umbrella_exists=true
+fi
+
+umbrella_app=${UMBRELLA_APP:-$umbrella_exists}
+
+if [ -z "${umbrella_app}" ]
+then
+  echo "::error::Umbrella Apps Are Currently Unsupported."
+  exit 0
+fi
+
 mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
 
 initial_version=${INITIAL_VERSION:-$mix_version}
