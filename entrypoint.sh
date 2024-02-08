@@ -43,6 +43,9 @@ then
   exit 0
 fi
 
+mix local.hex --force && \
+mix local.rebar --force
+
 mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
 
 initial_version=${INITIAL_VERSION:-$mix_version}
