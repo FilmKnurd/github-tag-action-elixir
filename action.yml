@@ -1,5 +1,5 @@
 name: 'Github Tag Bump Elixir'
-description: 'Automatically bump version, update mix.exs and push git tag for your Elixir projects.'
+description: 'Manage your Elixir app versioning when Bump version by updating mix.exs and pushing git tag for your Elixir projects.'
 author: 'Jason Clark'
 runs:
   using: 'docker'
