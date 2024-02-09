@@ -303,12 +303,16 @@ echo "EVENT: updating mix.exs to version: $ver"
          echo "$mix" > mix.exs
       fi
 
-echo "EVENT: pushing version: $ver to remote"
+echo "EVENT: pushing version: $ver to origin"
 
 mix format
 git add mix.exs
 git commit --amend --no-edit
 git push -f
+
+dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
+full_name=$GITHUB_REPOSITORY
+echo "$dt: **pushing version $ver to repo $full_name"
 
 
 echo "EVENT: creating local tag $new"
