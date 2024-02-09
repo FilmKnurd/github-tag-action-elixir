@@ -304,7 +304,7 @@ echo "EVENT: updating mix.exs to version: $ver"
       fi
 
 echo "EVENT: pushing version: $ver to origin"
-
+echo "$mix"
 mix format
 git add mix.exs
 git commit --amend --no-edit
