@@ -319,17 +319,17 @@ EOF
     then
       #update mix.exs
       echo "Updating mix.exs to version: ${ver}."
-      mix=$(sed 's/version..*/version  '\""${ver}\""' /' < mix.exs)
+    mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
        echo "$mix" > mix.exs
 
-#      if "$with_v"
-#      then
-#         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-#         echo "$mix" > mix.exs
-#      else
-#         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
-#         echo "$mix" > mix.exs
-#      fi
+      if "$with_v"
+      then
+         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
+         echo "$mix" > mix.exs
+      else
+         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
+         echo "$mix" > mix.exs
+      fi
 
       mix format
       git add mix.exs
@@ -343,17 +343,17 @@ EOF
 else
     # use git cli to push
     echo "Updating mix.exs."
-    mix=$(sed 's/version..*/version  '\""${ver}\""' /' < mix.exs)
+    mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
     echo "$mix" > mix.exs
 
-#     if "$with_v"
-#          then
-#             mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-#             echo "$mix" > mix.exs
-#          else
-#             mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
-#             echo "$mix" > mix.exs
-#          fi
+     if "$with_v"
+          then
+             mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
+             echo "$mix" > mix.exs
+          else
+             mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
+             echo "$mix" > mix.exs
+          fi
 
     mix format
     git add mix.exs
