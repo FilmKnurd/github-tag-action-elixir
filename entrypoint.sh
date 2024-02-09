@@ -322,14 +322,14 @@ EOF
       mix=$(sed 's/version..*/version  '\""${ver}\""' /' < mix.exs)
        echo "$mix" > mix.exs
 
-      if "$with_v"
-      then
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-         echo "$mix" > mix.exs
-      else
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
-         echo "$mix" > mix.exs
-      fi
+#      if "$with_v"
+#      then
+#         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
+#         echo "$mix" > mix.exs
+#      else
+#         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
+#         echo "$mix" > mix.exs
+#      fi
 
       mix format
       git add mix.exs
@@ -346,14 +346,14 @@ else
     mix=$(sed 's/version..*/version  '\""${ver}\""' /' < mix.exs)
     echo "$mix" > mix.exs
 
-     if "$with_v"
-          then
-             mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
-             echo "$mix" > mix.exs
-          else
-             mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
-             echo "$mix" > mix.exs
-          fi
+#     if "$with_v"
+#          then
+#             mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\""' /' < mix.exs)
+#             echo "$mix" > mix.exs
+#          else
+#             mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\""' /' < mix.exs)
+#             echo "$mix" > mix.exs
+#          fi
 
     mix format
     git add mix.exs
