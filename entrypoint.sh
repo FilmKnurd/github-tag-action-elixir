@@ -290,16 +290,16 @@ fi
 
 echo "EVENT: updating mix.exs to version: $ver"
 
-       mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
+       mix=$(sed 's/version.*"/version '\""${ver}\""'/' < mix.exs)
 
        echo "$mix" > mix.exs
 
       if "$with_v"
       then
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
+         mix=$(sed 's/.*source_ref:..*/source_ref: '\"v"${ver}\"",'/' < mix.exs)
          echo "$mix" > mix.exs
       else
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
+         mix=$(sed 's/.*source_ref:..*/source_ref: '\""${ver}\"",'/' < mix.exs)
          echo "$mix" > mix.exs
       fi
 
