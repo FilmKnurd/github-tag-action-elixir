@@ -1,6 +1,6 @@
 # github-tag-action-elixir
 
-A Github Action to automatically bump update mix.exs and tag master, on merge, with the latest SemVer formatted version.
+A Github Action to manage your elixir apps versioning by updating mix.exs and tag master, on merge, with the latest SemVer formatted version.
 
 [![Build Status](https://github.com/data-twister/github-tag-action-elixir/workflows/Bump%20Project%20version%20(Elixir)/badge.svg)](https://github.com/data-twister/github-tag-action-elixir/workflows/Bump%20version/badge.svg)
 [![Stable Version](https://img.shields.io/github/v/tag/data-twister/github-tag-action-elixir)](https://img.shields.io/github/v/tag/data-twister/github-tag-action-elixir)
