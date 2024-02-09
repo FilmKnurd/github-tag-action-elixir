@@ -287,6 +287,24 @@ then
     exit 0
 fi
 
+## run push
+
+echo "EVENT: updating mix.exs to version: $ver"
+
+       mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
+
+       echo "$mix" > mix.exs
+
+      if "$with_v"
+      then
+         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
+         echo "$mix" > mix.exs
+      else
+         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
+         echo "$mix" > mix.exs
+      fi
+
+
 echo "EVENT: creating local tag $new"
 # create local git tag
 git tag -f "$new" || exit 1
@@ -317,19 +335,6 @@ EOF
     echo "::debug::${git_refs_response}"
     if [ "${git_ref_posted}" = "refs/tags/${new}" ]
     then
-      #update mix.exs
-      echo "Updating mix.exs to version: ${ver}."
-    mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
-       echo "$mix" > mix.exs
-
-      if "$with_v"
-      then
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
-         echo "$mix" > mix.exs
-      else
-         mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
-         echo "$mix" > mix.exs
-      fi
 
       mix format
       git add mix.exs
@@ -341,19 +346,6 @@ EOF
         exit 1
     fi
 else
-    # use git cli to push
-    echo "Updating mix.exs."
-    mix=$(sed 's/version..*/version  '\""${ver}\"",' /' < mix.exs)
-    echo "$mix" > mix.exs
-
-     if "$with_v"
-          then
-             mix=$(sed 's/.*source_ref:..*/source_ref:  '\"v"${ver}\"",' /' < mix.exs)
-             echo "$mix" > mix.exs
-          else
-             mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
-             echo "$mix" > mix.exs
-          fi
 
     mix format
     git add mix.exs
