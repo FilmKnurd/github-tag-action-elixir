@@ -287,7 +287,6 @@ then
     exit 0
 fi
 
-## run push
 
 echo "EVENT: updating mix.exs to version: $ver"
 
@@ -303,6 +302,13 @@ echo "EVENT: updating mix.exs to version: $ver"
          mix=$(sed 's/.*source_ref:..*/source_ref:  '\""${ver}\"",' /' < mix.exs)
          echo "$mix" > mix.exs
       fi
+
+echo "EVENT: pushing version: $ver to remote"
+
+mix format
+git add mix.exs
+git commit --amend --no-edit
+git push -f
 
 
 echo "EVENT: creating local tag $new"
@@ -336,10 +342,6 @@ EOF
     if [ "${git_ref_posted}" = "refs/tags/${new}" ]
     then
 
-      mix format
-      git add mix.exs
-      git commit --amend --no-edit
-      git push -f
         exit 0
     else
         echo "::error::Tag was not created properly."
@@ -347,9 +349,5 @@ EOF
     fi
 else
 
-    mix format
-    git add mix.exs
-    git commit --amend --no-edit
-    git push -f
-    git push -f origin "$new" || exit 0
+       exit 0
 fi
