@@ -137,6 +137,21 @@ If `#none` is contained in the merge commit message, it will skip bumping regard
   - If triggered on any other branch, a prerelease will be generated, depending on the bump, starting with `*-<PRERELEASE_SUFFIX>.1`, `*-<PRERELEASE_SUFFIX>.2`, ...
   - To create a repository release you need another workflow like [automatic-releases](https://github.com/marketplace/actions/automatic-releases).
 
+### Umbrella Apps
+For automatic versioning of umbrella apps you need to add the version key: value to project.
+
+```elixir
+def project do
+[
+apps_path: "apps",
+version: "0.1.0",
+start_permanent: Mix.env() == :prod,
+deps: deps(),
+aliases: aliases()
+]
+end
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
