@@ -23,19 +23,11 @@ branch_history=${BRANCH_HISTORY:-compare}
 user_email=${GIT_EMAIL:-}
 user_name=${GIT_USERNAME:-}
 force_update=${FORCE_UPDATE:-}
+initial_version=${INITIAL_VERSION:-}
 # since https://github.blog/2022-04-12-git-security-vulnerability-announced/ runner uses?
 git config --global --add safe.directory /github/workspace
 
 cd "${GITHUB_WORKSPACE}/${source}" || exit 1
-
-mix local.hex --force && \
-mix local.rebar --force
-
-mix deps.get
-
-mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
-
-initial_version=${INITIAL_VERSION:-$mix_version}
 
 echo "*** CONFIGURATION ***"
 echo -e "\tDEFAULT_BUMP: ${default_semvar_bump}"
@@ -130,21 +122,48 @@ pre_tag=$(head -n 1 <<< "$matching_pre_tag_refs")
 # if there are none, start tags at INITIAL_VERSION
 if [ -z "$tag" ]
 then
-    if $with_v
-    then
-        tag="v$initial_version"
-    else
-        tag="$initial_version"
-    fi
-    if [ -z "$pre_tag" ] && $pre_release
-    then
-        if $with_v
+
+  if $initial_version
+  then
+     if $with_v
         then
-            pre_tag="v$initial_version"
+            tag="v$initial_version"
         else
-            pre_tag="$initial_version"
+            tag="$initial_version"
         fi
-    fi
+        if [ -z "$pre_tag" ] && $pre_release
+        then
+            if $with_v
+            then
+                pre_tag="v$initial_version"
+            else
+                pre_tag="$initial_version"
+            fi
+        fi
+    else
+        mix local.hex --force && \
+        mix local.rebar --force
+
+        mix deps.get
+
+        mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
+
+       if $with_v
+          then
+              tag="v$mix_version"
+          else
+              tag="$mix_version"
+          fi
+          if [ -z "$pre_tag" ] && $pre_release
+          then
+              if $with_v
+              then
+                  pre_tag="v$mix_version"
+              else
+                  pre_tag="$mix_version"
+              fi
+          fi
+      fi
 fi
 
 # get current commit hash for tag
