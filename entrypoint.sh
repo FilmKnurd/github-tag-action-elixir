@@ -297,7 +297,7 @@ fi
 
 echo "EVENT: updating mix.exs to version: $ver"
 
-       mix=$(sed 's/version.*"/version '\""${ver}\""'/' < mix.exs)
+       mix=$(sed 's/version.*"/version '\""${ver}\"",'/' < mix.exs)
 
        echo "$mix" > mix.exs
 
