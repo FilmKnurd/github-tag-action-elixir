@@ -22,6 +22,7 @@ none_string_token=${NONE_STRING_TOKEN:-#none}
 branch_history=${BRANCH_HISTORY:-compare}
 user_email=${GIT_EMAIL:-}
 user_name=${GIT_USERNAME:-}
+force_update=${FORCE_UPDATE:-}
 # since https://github.blog/2022-04-12-git-security-vulnerability-announced/ runner uses?
 git config --global --add safe.directory /github/workspace
 
@@ -57,6 +58,7 @@ echo -e "\tNONE_STRING_TOKEN: ${none_string_token}"
 echo -e "\tBRANCH_HISTORY: ${branch_history}"
 echo -e "\tUSER_EMAIL: ${user_email}"
 echo -e "\tUSER_NAME: ${user_name}"
+echo -e "\FORCE_UPDATE: ${force_update}"
 
 # verbose, show everything
 if $verbose
@@ -293,8 +295,15 @@ echo "EVENT: pushing version: $ver to origin"
 echo "$mix"
 mix format
 git add mix.exs
-git commit --amend --no-edit
-git push -f
+
+if "$force_update"
+then
+  git commit --amend --no-edit
+  git push -f
+else
+  git commit -m "$ver"
+  git push
+fi
 
 dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
 full_name=$GITHUB_REPOSITORY
