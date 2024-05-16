@@ -52,6 +52,13 @@ echo -e "\tUSER_EMAIL: ${user_email}"
 echo -e "\tUSER_NAME: ${user_name}"
 echo -e "\FORCE_UPDATE: ${force_update}"
 
+trim_string() {
+# Usage: trim_string " example string "
+: "${1#"${1%%[![:space:]]*}"}"
+: "${_%"${_##*[![:space:]]}"}"
+printf '%s\n' "$_"
+}
+
 # verbose, show everything
 if $verbose
 then
@@ -141,12 +148,13 @@ then
             fi
         fi
     else
-        mix local.hex --force && \
-        mix local.rebar --force
+        # mix local.hex --force && \
+        # mix local.rebar --force
 
-        mix deps.get
+        # mix deps.get
 
-        mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
+        # mix_version=$(mix run --eval "Mix.Project.config()[:version] |> IO.puts()")
+        mix_version=$(trim_string $(sed -n 's/version: "\([0-9.]*\)",/\1/p' mix.exs))
 
        if $with_v
           then
@@ -317,7 +325,7 @@ echo "EVENT: updating mix.exs to version: $ver"
 
 echo "EVENT: pushing version: $ver to origin"
 echo "$mix"
-mix format
+# mix format mix.exs
 git add mix.exs
 
 if "$force_update"
