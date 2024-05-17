@@ -326,59 +326,59 @@ echo "EVENT: updating mix.exs to version: $ver"
 echo "EVENT: pushing version: $ver to origin"
 echo "$mix"
 # mix format mix.exs
-# git add mix.exs
+git add mix.exs
 
-# if "$force_update"
-# then
-#   git commit --amend --no-edit
-#   git push -f
-# else
-#   git commit -m "$ver"
-#   git push
-# fi
+if "$force_update"
+then
+  git commit --amend --no-edit
+  git push -f
+else
+  git commit -m "$ver"
+  git push
+fi
 
-# dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
-# full_name=$GITHUB_REPOSITORY
-# echo "$dt: **pushing version $ver to repo $full_name"
+dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
+full_name=$GITHUB_REPOSITORY
+echo "$dt: **pushing version $ver to repo $full_name"
 
 
-# echo "EVENT: creating local tag $new"
-# # create local git tag
-# git tag -f "$new" || exit 1
-# echo "EVENT: pushing tag $new to origin"
+echo "EVENT: creating local tag $new"
+# create local git tag
+git tag -f "$new" || exit 1
+echo "EVENT: pushing tag $new to origin"
 
-# if $git_api_tagging
-# then
-#     # use git api to push
-#     dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
-#     full_name=$GITHUB_REPOSITORY
-#     git_refs_url=$(jq .repository.git_refs_url "$GITHUB_EVENT_PATH" | tr -d '"' | sed 's/{\/sha}//g')
+if $git_api_tagging
+then
+    # use git api to push
+    dt=$(date '+%Y-%m-%dT%H:%M:%SZ')
+    full_name=$GITHUB_REPOSITORY
+    git_refs_url=$(jq .repository.git_refs_url "$GITHUB_EVENT_PATH" | tr -d '"' | sed 's/{\/sha}//g')
 
-#     echo "$dt: **pushing tag $new to repo $full_name"
+    echo "$dt: **pushing tag $new to repo $full_name"
 
-#     git_refs_response=$(
-#     curl -s -X POST "$git_refs_url" \
-#     -H "Authorization: token $GITHUB_TOKEN" \
-#     -d @- << EOF
-# {
-#     "ref": "refs/tags/$new",
-#     "sha": "$commit"
-# }
-# EOF
-# )
+    git_refs_response=$(
+    curl -s -X POST "$git_refs_url" \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -d @- << EOF
+{
+    "ref": "refs/tags/$new",
+    "sha": "$commit"
+}
+EOF
+)
 
-#     git_ref_posted=$( echo "${git_refs_response}" | jq .ref | tr -d '"' )
+    git_ref_posted=$( echo "${git_refs_response}" | jq .ref | tr -d '"' )
 
-#     echo "::debug::${git_refs_response}"
-#     if [ "${git_ref_posted}" = "refs/tags/${new}" ]
-#     then
+    echo "::debug::${git_refs_response}"
+    if [ "${git_ref_posted}" = "refs/tags/${new}" ]
+    then
 
-#         exit 0
-#     else
-#         echo "::error::Tag was not created properly."
-#         exit 1
-#     fi
-# else
+        exit 0
+    else
+        echo "::error::Tag was not created properly."
+        exit 1
+    fi
+else
 
-#        exit 0
-# fi
+       exit 0
+fi
